@@ -1,10 +1,13 @@
+import { useState } from "react";
 import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "next/font/google";
+import Products from "@/components/Products";
+import { data } from "@/data";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [products, setProducts] = useState(data);
   return (
     <>
       <Head>
@@ -13,6 +16,9 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <div className='md:max-w-6xl md:mx-auto'>
+        <Products products={data} />
+      </div>
     </>
   );
 }
