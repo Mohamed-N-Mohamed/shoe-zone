@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { data } from "@/data";
 
-const Products = ({ products }) => {
+const Products = ({ products, searchTerm }) => {
   return (
     <div className='products p-4 grid grid-cols-1 md:grid-cols-3 gap-4'>
+      {products.length === 0 && <p>No Item has been found</p>}
       {products.map(({ id, name, price, image }) => (
         <div className='product-item' key={id}>
           <div className='product-img'>

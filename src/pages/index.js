@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import Products from "@/components/Products";
 import { data } from "@/data";
+import Search from "@/components/Search";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [products, setProducts] = useState(data);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filterData = products.filter((item) => {
+    if (item.name.toLowerCase().includes(searchTerm)) {
+      return item;
+    }
+  });
+
   return (
     <>
       <Head>
@@ -16,8 +25,9 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <Search searchWord={setSearchTerm} />
       <div className='md:max-w-6xl md:mx-auto'>
-        <Products products={data} />
+        <Products products={filterData} search={searchTerm} />
       </div>
     </>
   );
