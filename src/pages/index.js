@@ -4,14 +4,16 @@ import { Inter } from "next/font/google";
 import Products from "@/components/Products";
 import { data } from "@/data";
 import Search from "@/components/Search";
+import Select from "@/components/Select";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [products, setProducts] = useState(data);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState(products);
 
-  const filterData = products.filter((item) => {
+  const filterName = filteredProducts.filter((item) => {
     if (item.name.toLowerCase().includes(searchTerm)) {
       return item;
     }
@@ -26,8 +28,9 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Search searchWord={setSearchTerm} />
+      <Select products={filterName} setFilteredProducts={setFilteredProducts} />
       <div className='md:max-w-6xl md:mx-auto'>
-        <Products products={filterData} search={searchTerm} />
+        <Products products={filterName} />
       </div>
     </>
   );

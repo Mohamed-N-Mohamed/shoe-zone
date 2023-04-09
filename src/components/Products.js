@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { data } from "@/data";
 
-const Products = ({ products, searchTerm }) => {
+const Products = ({ products }) => {
   return (
     <div className='products p-4 grid grid-cols-1 md:grid-cols-3 gap-4'>
       {products.length === 0 && <p>No Item has been found</p>}
@@ -15,7 +15,7 @@ const Products = ({ products, searchTerm }) => {
               <h2>{name}</h2>
             </div>
             <div className='price w-[40%] '>
-              <h3>{price}</h3>
+              <h3>£{price}</h3>
             </div>
           </div>
         </div>
