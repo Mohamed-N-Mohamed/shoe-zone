@@ -1,9 +1,10 @@
 import React from "react";
 
 const Select = ({ products, setFilteredProducts }) => {
+
+  
   const handleOnSelect = (e) => {
     const { value } = e.target;
-
     if (value === "Price (Low to High)") {
       const priceLow = products.sort((a, b) => a.price - b.price);
       setFilteredProducts(priceLow);

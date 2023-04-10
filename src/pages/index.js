@@ -6,18 +6,33 @@ import { data } from "@/data";
 import Search from "@/components/Search";
 import Select from "@/components/Select";
 
+import { AiOutlineShoppingCart } from "react-icons/ai";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [products, setProducts] = useState(data);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(products);
+  const [basket, setBasket] = useState([]);
+  const [clicked, setClicked] = useState(false);
+
+  console.log(basket.length);
+  console.log(basket);
 
   const filterName = filteredProducts.filter((item) => {
     if (item.name.toLowerCase().includes(searchTerm)) {
       return item;
     }
   });
+
+  //add item to basket
+
+  const addItemsToBasket = (item) => {
+    setBasket((prev) => {
+      return [...prev, item];
+    });
+  };
 
   return (
     <>
@@ -28,9 +43,23 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Search searchWord={setSearchTerm} />
-      <Select products={filterName} setFilteredProducts={setFilteredProducts} />
+
+      <div className='shopping-cart flex justify-between items-center p-8'>
+        <Select
+          products={filterName}
+          setFilteredProducts={setFilteredProducts}
+          searchTerm={searchTerm}
+        />
+        <div className='relative'>
+          <AiOutlineShoppingCart size={50} />
+          <span className='absolute top-2 left-6 text-red-600'>
+            {basket.length}
+          </span>
+        </div>
+      </div>
+
       <div className='md:max-w-6xl md:mx-auto'>
-        <Products products={filterName} />
+        <Products products={filterName} handleOnClick={addItemsToBasket} />
       </div>
     </>
   );
